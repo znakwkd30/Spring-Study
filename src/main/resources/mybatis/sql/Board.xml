@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.kr.paka.repository.BoardRepository">
+    <select id="getList" parameterType="co.kr.paka.domain.Board" resultType="co.kr.paka.domain.Board">
+        select * from board order by reg_date desc
+    </select>
+
+    <select id="get" parameterType="int" resultType="co.kr.paka.domain.Board">
+        select * from board where board_seq = #{boardSeq}
+    </select>
+
+    <insert id="save" parameterType="co.kr.paka.domain.Board" useGeneratedKeys="true" keyProperty="boardSeq">
+        insert into board (title, contents, reg_date) values(#{title}, #{contents}, now())
+    </insert>
+
+    <update id="update" parameterType="co.kr.paka.domain.Board">
+        update board set title = #{title}, contents = #{contents} where board_seq = #{boardSeq}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from board where board_seq = #{boardSeq}
+    </delete>
+</mapper>
