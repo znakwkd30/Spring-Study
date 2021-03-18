@@ -11,6 +11,7 @@ public class Board {
     private String title;
     private String content;
     private Date regDate;
+    private BoardType boardType;
 
     public Board(String title, String content) {
         this.title = title;
