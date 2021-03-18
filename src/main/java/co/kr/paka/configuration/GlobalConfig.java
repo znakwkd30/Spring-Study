@@ -29,7 +29,7 @@ public class GlobalConfig {
         String[] activeProfiles = context.getEnvironment().getActiveProfiles();
         String activeProfile = "local";
 
-        if (ObjectUtils.isNotEmpty(activeProfile)) {
+        if (ObjectUtils.isNotEmpty(activeProfiles)) {
             activeProfile = activeProfiles[0];
         }
 
