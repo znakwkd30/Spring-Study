@@ -11,14 +11,21 @@
     </select>
 
     <insert id="save" parameterType="co.kr.paka.domain.Board" useGeneratedKeys="true" keyProperty="boardSeq">
-        insert into board (title, contents, reg_date) values(#{title}, #{contents}, now())
+        insert into board (title, content, reg_date) values(#{title}, #{content}, now())
     </insert>
 
     <update id="update" parameterType="co.kr.paka.domain.Board">
-        update board set title = #{title}, contents = #{contents} where board_seq = #{boardSeq}
+        update board set title = #{title}, content = #{contents} where board_seq = #{boardSeq}
     </update>
 
     <delete id="delete" parameterType="int">
         delete from board where board_seq = #{boardSeq}
     </delete>
+
+    <insert id="saveList" parameterType="map">
+        insert into board (title, content, reg_date) values
+        <foreach collection="boardList" item="board" separator=",">
+            (#{board.title}, #{board.content}, now())
+        </foreach>
+    </insert>
 </mapper>

@@ -9,10 +9,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +25,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping
     @ApiOperation(value = "전체 조회", notes = "게시물 전체 조회를 할 수 있습니다.")
@@ -54,11 +60,59 @@ public class BoardController {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[] { "title", "제목" });
         }
 
-        if (StringUtils.isEmpty(board.getContents())) {
-            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[] { "contents", "내용" });
+        if (StringUtils.isEmpty(board.getContent())) {
+            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[] { "content", "내용" });
         }
 
         return new BaseResponse<>(boardService.save(board));
+    }
+
+    @PostMapping("/saveList1")
+    @ApiOperation(value = "대용량 처리", notes = "대용량 처리")
+    public BaseResponse<Boolean> saveList1() {
+        int count = 0;
+        List<Board> list = new ArrayList<Board>();
+        while (true) {
+            count ++;
+            String title = RandomStringUtils.randomAlphabetic(10);
+            String content = RandomStringUtils.randomAlphabetic(10);
+            list.add(new Board(title, content));
+
+            if (count >= 10000) {
+                break;
+            }
+        }
+
+        long start = System.currentTimeMillis();
+        boardService.saveList1(list);
+        long end = System.currentTimeMillis();
+        logger.info("실행 시간 : {}", (end - start) / 1000.0);
+
+        return new BaseResponse<>(true);
+    }
+
+    @PostMapping("/saveList2")
+    @ApiOperation(value = "대용량 처리2", notes = "대용량 처리2")
+    public BaseResponse<Boolean> saveList2() {
+        int count = 0;
+        List<Board> list = new ArrayList<Board>();
+        while (true) {
+            count ++;
+            String title = RandomStringUtils.randomAlphabetic(10);
+            String content = RandomStringUtils.randomAlphabetic(10);
+            list.add(new Board(title, content));
+
+            if (count >= 10000) {
+                break;
+            }
+        }
+
+        long start = System.currentTimeMillis();
+        boardService.saveList2(list);
+        long end = System.currentTimeMillis();
+        logger.info("실행 시간 : {}", (end - start) / 1000.0);
+
+        return new BaseResponse<>(true);
     }
 
     @PutMapping("/update")

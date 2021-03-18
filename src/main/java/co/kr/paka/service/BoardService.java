@@ -5,7 +5,9 @@ import co.kr.paka.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -25,6 +27,18 @@ public class BoardService {
         boardRepository.save(board);
 
         return boardRepository.get(board.getBoardSeq());
+    }
+
+    public void saveList1(List<Board> list) {
+        for (Board board : list) {
+            boardRepository.save(board);
+        }
+    }
+
+    public void saveList2(List<Board> boardList) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("boardList", boardList);
+        boardRepository.saveList(paramMap);
     }
 
     public void update(Board board) {

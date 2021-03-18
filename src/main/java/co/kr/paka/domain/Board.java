@@ -9,6 +9,11 @@ public class Board {
 
     private int boardSeq;
     private String title;
-    private String contents;
+    private String content;
     private Date regDate;
+
+    public Board(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
