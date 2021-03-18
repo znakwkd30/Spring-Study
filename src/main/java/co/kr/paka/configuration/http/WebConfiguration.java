@@ -1,6 +1,7 @@
 package co.kr.paka.configuration.http;
 
 import co.kr.paka.configuration.BaseCodeLabelEnumJsonSerializer;
+import co.kr.paka.configuration.data.web.MySQLPageRequestHandleMethodArgumentResolver;
 import co.kr.paka.configuration.servlet.handler.BaseHandlerInterceptor;
 import co.kr.paka.domain.BaseCodeLabelEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,10 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.util.List;
 import java.util.Locale;
 
 @Configuration
@@ -53,5 +56,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseHandlerInterceptor());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new MySQLPageRequestHandleMethodArgumentResolver());
     }
 }

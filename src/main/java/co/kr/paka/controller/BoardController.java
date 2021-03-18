@@ -1,5 +1,7 @@
 package co.kr.paka.controller;
 
+import co.kr.paka.configuration.data.domain.MySQLPageRequest;
+import co.kr.paka.configuration.data.domain.PageRequestParameter;
 import co.kr.paka.configuration.exception.BaseException;
 import co.kr.paka.configuration.http.BaseResponse;
 import co.kr.paka.configuration.http.BaseResponseCode;
@@ -31,8 +33,11 @@ public class BoardController {
 
     @GetMapping
     @ApiOperation(value = "전체 조회", notes = "게시물 전체 조회를 할 수 있습니다.")
-    public BaseResponse<List<Board>> getList(BoardSearchParameter parameter) {
-        return new BaseResponse<>(boardService.getList(parameter));
+    public BaseResponse<List<Board>> getList(BoardSearchParameter parameter, MySQLPageRequest pageRequest) {
+        logger.info("pageRequest : {}", pageRequest);
+        logger.info("keyword : {}, boardTypes : {}", parameter.getKeyword(), parameter.getBoardTypes());
+        PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<>(pageRequest, parameter);
+        return new BaseResponse<>(boardService.getList(pageRequestParameter));
     }
 
     @GetMapping("/{boardSeq}")

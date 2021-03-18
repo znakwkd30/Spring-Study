@@ -1,5 +1,6 @@
 package co.kr.paka.service;
 
+import co.kr.paka.configuration.data.domain.PageRequestParameter;
 import co.kr.paka.domain.Board;
 import co.kr.paka.repository.BoardRepository;
 import co.kr.paka.request.BoardSearchParameter;
@@ -16,8 +17,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<Board> getList(BoardSearchParameter parameter) {
-        return boardRepository.getList(parameter);
+    public List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter) {
+        return boardRepository.getList(pageRequestParameter);
     }
 
     public Board get(int boardSeq) {
