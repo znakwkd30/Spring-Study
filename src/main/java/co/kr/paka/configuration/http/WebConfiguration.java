@@ -1,6 +1,7 @@
 package co.kr.paka.configuration.http;
 
 import co.kr.paka.configuration.BaseCodeLabelEnumJsonSerializer;
+import co.kr.paka.configuration.GlobalConfig;
 import co.kr.paka.configuration.data.web.MySQLPageRequestHandleMethodArgumentResolver;
 import co.kr.paka.configuration.servlet.handler.BaseHandlerInterceptor;
 import co.kr.paka.domain.BaseCodeLabelEnum;
@@ -46,6 +47,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         jsonView.setContentType(MediaType.APPLICATION_JSON_VALUE);
         jsonView.setObjectMapper(objectMapper());
         return jsonView;
+    }
+
+    @Bean
+    public GlobalConfig config() {
+        return new GlobalConfig();
     }
 
     @Bean
