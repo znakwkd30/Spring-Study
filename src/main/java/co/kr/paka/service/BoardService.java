@@ -15,8 +15,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<Board> getList() {
-        return boardRepository.getList();
+    public List<Board> getList(String keyword) {
+        return boardRepository.getList(keyword);
     }
 
     public Board get(int boardSeq) {

@@ -30,8 +30,8 @@ public class BoardController {
 
     @GetMapping
     @ApiOperation(value = "전체 조회", notes = "게시물 전체 조회를 할 수 있습니다.")
-    public BaseResponse<List<Board>> getList() {
-        return new BaseResponse<>(boardService.getList());
+    public BaseResponse<List<Board>> getList(String keyword) {
+        return new BaseResponse<>(boardService.getList(keyword));
     }
 
     @GetMapping("/{boardSeq}")

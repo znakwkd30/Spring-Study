@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Repository
 public interface BoardRepository {
-    List<Board> getList();
+    List<Board> getList(String keyword);
 
     Board get(int boardSeq);
 
