@@ -1,5 +1,6 @@
 package co.kr.paka.controller;
 
+import co.kr.paka.configuration.http.BaseResponse;
 import co.kr.paka.domain.Board;
 import co.kr.paka.service.BoardService;
 import io.swagger.annotations.Api;
@@ -20,8 +21,8 @@ public class BoardController {
 
     @GetMapping
     @ApiOperation(value = "전체 조회", notes = "게시물 전체 조회를 할 수 있습니다.")
-    public List<Board> getList() {
-        return boardService.getList();
+    public BaseResponse<List<Board>> getList() {
+        return new BaseResponse<>(boardService.getList());
     }
 
     @GetMapping("/{boardSeq}")
@@ -29,8 +30,8 @@ public class BoardController {
     @ApiImplicitParams({
         @ApiImplicitParam(name = "boardSeq", value = "게시물 번호", example = "1")
     })
-    public Board get(@PathVariable int boardSeq) {
-        return boardService.get(boardSeq);
+    public BaseResponse<Board> get(@PathVariable int boardSeq) {
+        return new BaseResponse<>(boardService.get(boardSeq));
     }
 
     @PostMapping("/save")
@@ -39,16 +40,25 @@ public class BoardController {
         @ApiImplicitParam(name = "title", value = "게시글 제목", example = "테스트"),
         @ApiImplicitParam(name = "content", value = "게시글 내용", example = "테스트입니다.")
     })
-    public Board save(Board board) {
-        return boardService.save(board);
+    public BaseResponse<Board> save(Board board) {
+        return new BaseResponse<>(boardService.save(board));
     }
 
     @PutMapping("/update")
+    @ApiOperation(value = "보드 수정", notes = "게시물 번호에 해당하는 게시물의 정보를 수정할 수 있습니다.")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "title", value = "게시물 제목", example = "수정"),
+        @ApiImplicitParam(name = "content", value = "게시물 내용", example = "수정합니다.")
+    })
     public void update(Board board) {
         boardService.update(board);
     }
 
     @DeleteMapping("/delete/{boardSeq}")
+    @ApiOperation(value = "보드 삭제", notes = "게시물 번호에 해당하는 게시물의 정보를 삭제합니다.")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "boardSeq", value = "게시물 번호", example = "1")
+    })
     public void delete(@PathVariable int boardSeq) {
         boardService.delete(boardSeq);
     }
