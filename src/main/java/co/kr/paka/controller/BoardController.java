@@ -4,6 +4,7 @@ import co.kr.paka.configuration.exception.BaseException;
 import co.kr.paka.configuration.http.BaseResponse;
 import co.kr.paka.configuration.http.BaseResponseCode;
 import co.kr.paka.domain.Board;
+import co.kr.paka.request.BoardSearchParameter;
 import co.kr.paka.service.BoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,8 +31,8 @@ public class BoardController {
 
     @GetMapping
     @ApiOperation(value = "전체 조회", notes = "게시물 전체 조회를 할 수 있습니다.")
-    public BaseResponse<List<Board>> getList(String keyword) {
-        return new BaseResponse<>(boardService.getList(keyword));
+    public BaseResponse<List<Board>> getList(BoardSearchParameter parameter) {
+        return new BaseResponse<>(boardService.getList(parameter));
     }
 
     @GetMapping("/{boardSeq}")

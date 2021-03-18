@@ -2,6 +2,7 @@ package co.kr.paka.service;
 
 import co.kr.paka.domain.Board;
 import co.kr.paka.repository.BoardRepository;
+import co.kr.paka.request.BoardSearchParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<Board> getList(String keyword) {
-        return boardRepository.getList(keyword);
+    public List<Board> getList(BoardSearchParameter parameter) {
+        return boardRepository.getList(parameter);
     }
 
     public Board get(int boardSeq) {

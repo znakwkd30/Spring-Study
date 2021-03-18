@@ -1,6 +1,7 @@
 package co.kr.paka.repository;
 
 import co.kr.paka.domain.Board;
+import co.kr.paka.request.BoardSearchParameter;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 @Repository
 public interface BoardRepository {
-    List<Board> getList(String keyword);
+    List<Board> getList(BoardSearchParameter parameter);
 
     Board get(int boardSeq);
 
