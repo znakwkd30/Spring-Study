@@ -20,6 +20,7 @@ public class GlobalConfig {
     private ResourceLoader resourceLoader;
 
     private String uploadFilePath;
+    private String uploadResourcePath;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -38,6 +39,7 @@ public class GlobalConfig {
             Resource resource = resourceLoader.getResource(resourcePath);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             uploadFilePath = properties.getProperty("uploadFile.path");
+            uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
         } catch (Exception e) {
             logger.error("e", e);
         }
@@ -45,5 +47,8 @@ public class GlobalConfig {
 
     public String getUploadFilePath() {
         return uploadFilePath;
+    }
+    public String getUploadResourcePath() {
+        return uploadResourcePath;
     }
 }
