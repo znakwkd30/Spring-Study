@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="co.kr.paka.repository.BoardRepository">
-    <select id="getList" parameterType="co.kr.paka.configuration.data.domain.PageRequestParameter" resultType="co.kr.paka.domain.Board">
+    <select id="getList" parameterType="co.kr.paka.configuration.data.domain.PageRequestParameter"
+            resultType="co.kr.paka.domain.Board">
         select * from board
         <where>
             <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(parameter.keyword)">
@@ -10,9 +11,9 @@
             </if>
             <if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(parameter.boardTypes)">
                 board_type in (
-                    <foreach collection="parameter.boardTypes" item="value" separator=",">
-                        #{value}
-                    </foreach>
+                <foreach collection="parameter.boardTypes" item="value" separator=",">
+                    #{value}
+                </foreach>
                 )
             </if>
         </where>

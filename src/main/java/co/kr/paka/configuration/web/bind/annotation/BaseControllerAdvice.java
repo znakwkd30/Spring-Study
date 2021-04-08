@@ -16,7 +16,7 @@ public class BaseControllerAdvice {
     @Autowired
     private MessageSource messageSource;
 
-    @ExceptionHandler(value = { BaseException.class })
+    @ExceptionHandler(value = {BaseException.class})
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     private BaseResponse<?> handleBaseException(BaseException e, WebRequest request) {

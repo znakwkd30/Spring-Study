@@ -48,6 +48,7 @@ public class GlobalConfig {
     public String getUploadFilePath() {
         return uploadFilePath;
     }
+
     public String getUploadResourcePath() {
         return uploadResourcePath;
     }

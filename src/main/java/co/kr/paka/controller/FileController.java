@@ -27,7 +27,7 @@ public class FileController {
     private UploadFileService uploadFileService;
 
     @PostMapping("/save")
-    public BaseResponse<Boolean> save(@RequestParam("uploadFile")MultipartFile multipartFile) {
+    public BaseResponse<Boolean> save(@RequestParam("uploadFile") MultipartFile multipartFile) {
         if (multipartFile == null || multipartFile.isEmpty()) {
             throw new BaseException(BaseResponseCode.DATA_IS_NULL);
         }
@@ -36,7 +36,7 @@ public class FileController {
         String prefix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1, multipartFile.getOriginalFilename().length());
         String filename = UUID.randomUUID().toString() + "." + prefix;
         String pathname = uploadFilePath + filename;
-        String resourcePathname = config.getUploadResourcePath() +currentDate + "/" + filename;
+        String resourcePathname = config.getUploadResourcePath() + currentDate + "/" + filename;
 
         File folder = new File(uploadFilePath);
         if (!folder.isDirectory()) {
